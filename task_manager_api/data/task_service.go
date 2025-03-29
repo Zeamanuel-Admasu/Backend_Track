@@ -19,7 +19,11 @@ func ConnectDB(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	TaskCollection = client.Database("task_manager").Collection("tasks")
+	db := client.Database("task_manager")
+
+	// ✅ Initialize both collections
+	TaskCollection = db.Collection("tasks")
+	UserCollection = db.Collection("users")
 	return nil
 }
 
