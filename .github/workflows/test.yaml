@@ -2,7 +2,7 @@ name: Go Test CI
 
 on:
   push:
-    branches: [main, clean-architecture-test]  # You can list branches
+    branches: [main, clean-architecture-test]
   pull_request:
     branches: [main]
 
@@ -21,12 +21,14 @@ jobs:
 
       - name: 📦 Install dependencies
         run: go mod tidy
+        working-directory: ./task_manager_api
 
       - name: 🧪 Run unit tests
         run: go test ./... -v -coverprofile=coverage.out
+        working-directory: ./task_manager_api
 
       - name: 📊 Upload coverage report (optional)
         uses: actions/upload-artifact@v4
         with:
           name: code-coverage
-          path: coverage.out
+          path: task_manager_api/coverage.out
